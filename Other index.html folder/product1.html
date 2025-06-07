@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../other cssfolder/landing.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary p-4 sticky-top ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Beolard</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link active" href="/index.html">Home</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="fashion.html"><i class="fa-solid fa-shirt pe-2"></i>Fashion</a></li>
+            <li><a class="dropdown-item" href="electronics.html"><i class="fa-solid fa-laptop pe-2"></i>Electronics</a></li>
+            <li><a class="dropdown-item" href="beauty.html"><i class="fa-solid fa-user-doctor pe-2"></i>Health and Beauty</a></li>
+            <li><a class="dropdown-item" href="home.html"><i class="fa-solid fa-house pe-2"></i>Home decoration</a></li>
+            <li><a class="dropdown-item" href="grocery.html"><i class="fa-solid fa-basket-shopping pe-2"></i>Groceries</a></li>
+            <li><a class="dropdown-item" href="furniture.html"><i class="fa-solid fa-couch pe-2"></i>Furniture</a></li>
+          </ul>
+        </li>
+      </ul>
+     <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search products..." aria-label="Search"/>
+        <button class="btn searchbtn" type="submit">Search</button>
+      </form>
+      <div class="cartwrap">
+  <a href="Cart.html" class="cart-link position-relative">
+    <i class="bi bi-cart" style="font-size: 25px;"></i>
+    <span id="cart-count" class="cart-badge">0</span>
+  </a>
+</div>
+
+      <div class="dropdown">
+        <button class="btn border-0 bg-transparent dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown">
+          <i class="bi bi-person-circle usericon" style="font-size: 25px;"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+          <li><a class="dropdown-item" href="login.html">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+  
+
+  <div id="loading-spinner" class="d-flex justify-content-center my-5" >
+    <div class="spinner-grow text-primary" role="status" style="display: none;">
+      
+    </div>
+  </div>
+
+  <div id="product-details" class="container mt-5 d-flex gap-5 "></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Firebase App (core SDK) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    getDocs,
+    doc,
+    updateDoc,
+    deleteDoc,
+    query,
+    where
+  } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+const firebaseConfig = {
+    apiKey: "AIzaSyBM7LKOs-YIX1bwxYobs9UN1knm702C-bo",
+    authDomain: "newslettersignup-c89d0.firebaseapp.com",
+    projectId: "newslettersignup-c89d0",
+    storageBucket: "newslettersignup-c89d0.firebasestorage.app",
+    messagingSenderId: "323894764302",
+    appId: "1:323894764302:web:2460c09ca44d41b35c6d5f"
+  };
+ 
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+
+
+
+  // Replace localStorage cart handling with Firestore
+  async function addToCartFirestore(product) {
+    const cartRef = collection(db, "cart");
+
+    // Check if product already exists in cart
+    const q = query(cartRef, where("id", "==", product.id));
+    const querySnapshot = await getDocs(q);
+
+    if (!querySnapshot.empty) {
+      // If product already in cart, update quantity
+      const docRef = querySnapshot.docs[0].ref;
+      const existing = querySnapshot.docs[0].data();
+      await updateDoc(docRef, {
+        quantity: existing.quantity + 1
+      });
+    } else {
+      // Add new product
+      await addDoc(cartRef, {
+        id: product.id,
+        title: product.title,
+        price: product.price,
+        image: product.thumbnail,
+        quantity: 1
+      });
+    }
+
+    alert("Product added to cart successfully!");
+    updateCartCountFirestore();
+  }
+
+  // Replace getCart count with Firestore version
+  async function updateCartCountFirestore() {
+    const cartRef = collection(db, "cart");
+    const snapshot = await getDocs(cartRef);
+    let total = 0;
+    snapshot.forEach(doc => {
+      total += doc.data().quantity;
+    });
+    document.getElementById("cart-count").textContent = total;
+  }
+
+
+
+  // Update the button logic
+  window.renderProduct = function(product) {
+    const detailsDiv = document.getElementById("product-details");
+
+    const productCard = document.createElement("div");
+    productCard.style.width = "35rem";
+    productCard.style.padding = "5rem";
+    productCard.style.margin = "1rem";
+    productCard.style.borderRadius = "1rem";
+    productCard.style.backgroundColor = "burlywood";
+    productCard.innerHTML = `
+      <img src="${product.thumbnail}" alt="${product.title}" class="img-fluid productimage">
+    `;
+    detailsDiv.appendChild(productCard);
+
+    const secondCard = document.createElement("div");
+    secondCard.style.width = "70rem";
+    secondCard.style.padding = "1rem";
+    secondCard.style.margin = "1rem";
+    secondCard.innerHTML = `
+      <h1>${product.title}</h1>
+      <p>${product.description}</p>
+      <p><strong>Price:</strong> #${product.price}</p>
+      <p><strong>Warranty:</strong> ${product.warrantyInformation || "Not available"}</p>
+      <p><strong>Shipping Info:</strong> ${product.shippingInformation || "Not available"}</p>
+      <button class="btn singlepagebtn" id="singlepagebtn">Add to cart</button>
+    `;
+    detailsDiv.appendChild(secondCard);
+
+    const addToCartButton = secondCard.querySelector("#singlepagebtn");
+    addToCartButton.addEventListener("click", () => {
+      addToCartFirestore(product);
+    });
+  };
+
+  // Load product details from API
+ 
+  // Extract productId from URL query string
+  function getProductIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get("id"); // Make sure your product page uses ?id=123
+  }
+
+ async function loadProductDetails() {
+  const productId = getProductIdFromUrl();
+  const spinner = document.getElementById("loading-spinner");
+  const productContainer = document.getElementById("product-details");
+
+  if (!productId) {
+    productContainer.innerHTML = `<p>No product ID provided in the URL.</p>`;
+    return;
+  }
+
+  spinner.style.display = "block";
+
+  try {
+    const response = await fetch(`https://dummyjson.com/products/${productId}`);
+    if (!response.ok) throw new Error("Failed to fetch product");
+
+    const product = await response.json();
+    renderProduct(product);
+  } catch (error) {
+    productContainer.innerHTML = `<p>Error loading product. Please try again later.</p>`;
+    console.error(error);
+  } finally {
+    spinner.style.display = "none";
+  }
+}
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    updateCartCountFirestore();
+    loadProductDetails();
+  });
+
+  
+  
+</script>
+
+
+  
+</body>
+</html>

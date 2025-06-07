@@ -1,0 +1,153 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-position: center;
+  background-repeat: no-repeat;
+  font-family: Arial, sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+
+.input {
+  width: 100%;
+  max-width: 100%;
+  padding: 10px 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  display: block;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+
+.containerone {
+  background-color: burlywood;
+  width: 100%;
+  max-width: 520px;
+  padding: 20px;
+  text-align: center;
+  height: 650px;
+}
+
+.containerone img {
+  max-width: 100%;
+  height: auto;
+}
+
+.containerone p {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+
+.containertwo {
+  width: 100%;
+  max-width: 520px;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  height: 650px;
+  margin-bottom: 10px;
+}
+
+.containertwo h3 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.regex {
+  margin: 10px 0;
+  font-size: 0.9rem;
+}
+
+.regex li {
+  list-style: none;
+}
+
+.signupbtn {
+  background-color: burlywood;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+.input-group-wrapper {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.custom-checkbox-container {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.custom-checkbox-container input {
+  margin-right: 8px;
+}
+
+
+@media (max-width: 575.98px) {
+  .input {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding: 1rem;
+  }
+
+  .containertwo, .containerone {
+    width: 100%;
+  }
+}
+
+
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .containertwo, .containerone {
+    width: 90%;
+  }
+}
+
+
+@media (min-width: 992px) {
+  .wrapper {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .containerone, .containertwo {
+    width: 45%;
+    margin: 20px;
+  }
+}
+
+

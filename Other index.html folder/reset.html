@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset Password</title>
+
+  <!-- Font Awesome for Eye Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-zb7H96+6fQhU37KN1z+yf5IbL3OMf9x+YwcnfD/oyY4XcYkhsW98Qp+bEc1SqndFcRDK61GMdzYsYxTGgD64Ug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="../other cssfolder/reset.css">
+</head>
+<body>
+
+<h2>Reset Your Password</h2>
+
+<form id="resetPasswordForm">
+  <div class="password-container">
+    <input type="password" id="newPassword" placeholder="Enter new password" required />
+    <i id="togglePassword" class="fas fa-eye toggle-password"></i>
+  </div>
+  <p id="passwordError" style="color:red;"></p>
+  <button type="submit">Reset Password</button>
+  <p id="resetMessage"></p>
+</form>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+  import { getAuth, confirmPasswordReset } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBM7LKOs-YIX1bwxYobs9UN1knm702C-bo",
+    authDomain: "newslettersignup-c89d0.firebaseapp.com",
+    projectId: "newslettersignup-c89d0",
+    storageBucket: "newslettersignup-c89d0.appspot.com",
+    messagingSenderId: "323894764302",
+    appId: "1:323894764302:web:2460c09ca44d41b35c6d5f"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  const form = document.getElementById("resetPasswordForm");
+  const passwordError = document.getElementById("passwordError");
+  const resetMessage = document.getElementById("resetMessage");
+  const togglePassword = document.getElementById("togglePassword");
+  const newPasswordInput = document.getElementById("newPassword");
+
+  // Toggle password visibility
+  togglePassword.addEventListener("click", () => {
+    const isPassword = newPasswordInput.type === "password";
+    newPasswordInput.type = isPassword ? "text" : "password";
+    togglePassword.classList.toggle("fa-eye");
+    togglePassword.classList.toggle("fa-eye-slash");
+  });
+
+  function validatePassword(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+    return regex.test(password);
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const newPassword = newPasswordInput.value;
+    const urlParams = new URLSearchParams(window.location.search);
+    const oobCode = urlParams.get("oobCode");
+
+    if (!validatePassword(newPassword)) {
+      passwordError.textContent = "Password must be at least 8 characters, including uppercase, lowercase, and a special character.";
+      return;
+    } else {
+      passwordError.textContent = "";
+    }
+
+    try {
+      await confirmPasswordReset(auth, oobCode, newPassword);
+      resetMessage.textContent = "Password has been reset successfully.";
+      form.reset();
+      setTimeout(() => {
+        window.location.href = "login.html";
+      }, 3000);
+    } catch (error) {
+      if (error.code === 'auth/expired-action-code') {
+        resetMessage.textContent = "This reset link has expired. Please request a new one.";
+      } else {
+        resetMessage.textContent = "An error occurred: " + error.message;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

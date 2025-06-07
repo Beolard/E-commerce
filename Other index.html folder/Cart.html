@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+</head>
+<link rel="stylesheet" href="../other cssfolder/cart.css">
+<body  class="wrapper">
+  <div class="container m-5">
+    <h1 class="mb-4">Shopping Cart</h1>
+    <a href="/index.html" id="home" >Back to Home</a>
+
+    <div id="cart-items" class="mb-3"></div>
+    <h3><span id="cart-total"  style="display: none;">TOTAL:#0.00</span></h3>
+  </div>
+
+<div class="text-end checkout">
+  <button class="checkoutbtn" id="checkout-btn" >Checkout</button>
+</div>
+
+
+<div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="checkoutModalLabel">Order Summary</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body" id="checkout-summary">
+        <!-- Item summary will go here -->
+         <div id="order-items-summary"></div>
+ <div id="form-alert-container"></div>
+        <!-- 🧾 Payment Form -->
+        <form id="payment-form">
+          <div class="mb-3">
+            <label for="customer-name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="customer-name" required>
+          </div>
+          <div class="mb-3">
+            <label for="customer-email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="customer-email" required>
+          </div>
+          <div class="mb-3">
+            <label for="customer-phone" class="form-label">Phone Number</label>
+            <input type="tel" class="form-control" id="customer-phone" required>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" onclick="confirmCheckout()" >Confirm Checkout</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- Custom Confirm Modal -->
+<div class="modal fade" id="confirmRemoveModal" tabindex="-1" aria-labelledby="confirmRemoveModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="confirmRemoveModalLabel">Confirm Removal</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p class="fs-5">Are you sure you want to remove this item from your cart?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button id="confirm-remove-btn" type="button" class="btn btn-danger">Yes, Remove</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://js.paystack.co/v1/inline.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
+    import {
+      getFirestore,
+      collection,
+      getDocs,
+      deleteDoc,
+      doc,
+      updateDoc,
+      
+    } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
+  
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBM7LKOs-YIX1bwxYobs9UN1knm702C-bo",
+      authDomain: "newslettersignup-c89d0.firebaseapp.com",
+      projectId: "newslettersignup-c89d0",
+      storageBucket: "newslettersignup-c89d0.appspot.com",
+      messagingSenderId: "323894764302",
+      appId: "1:323894764302:web:2460c09ca44d41b35c6d5f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+
+const checkoutButton = document.getElementById("checkout-btn");
+const checkoutSummary = document.getElementById("order-items-summary");
+const checkoutModal = new bootstrap.Modal(document.getElementById('checkoutModal'));
+
+
+checkoutButton.addEventListener("click", async () => {
+  const querySnapshot = await getDocs(collection(db, "cart"));
+  let summaryHTML = "";
+  let total = 0;
+
+  querySnapshot.forEach((docSnap) => {
+    const item = docSnap.data();
+    const quantity = item.quantity || 1;
+    const price = item.price || 0;
+    const subtotal = quantity * price;
+    total += subtotal;
+    summaryHTML += `
+      <p><strong>${item.title}</strong> - #${price.toFixed(2)} x ${quantity} = #${subtotal.toFixed(2)}</p>
+    `;
+  });
+
+  summaryHTML += `<hr><p><strong>Total: #${total.toFixed(2)}</strong></p>`;
+  checkoutSummary.innerHTML = summaryHTML
+ 
+;
+
+checkoutModal.show();
+
+
+});
+
+window.confirmCheckout = async () => {
+  const alertContainer = document.getElementById('form-alert-container');
+  alertContainer.innerHTML = ''; // Clear previous alerts
+
+  const nameInput = document.getElementById('customer-name');
+  const emailInput = document.getElementById('customer-email');
+  const phoneInput = document.getElementById('customer-phone');
+
+  // Clear previous validation states
+  [nameInput, emailInput, phoneInput].forEach(input => {
+    input.classList.remove('is-invalid');
+  });
+
+  let isValid = true;
+
+  // Simple validation checks
+  if (!nameInput.value.trim()) {
+    nameInput.classList.add('is-invalid');
+    isValid = false;
+  }
+  if (!emailInput.value.trim() || !validateEmail(emailInput.value.trim())) {
+    emailInput.classList.add('is-invalid');
+    isValid = false;
+  }
+  if (!phoneInput.value.trim()) {
+    phoneInput.classList.add('is-invalid');
+    isValid = false;
+  }
+
+  if (!isValid) {
+    alertContainer.innerHTML = `
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        Please fill in all required fields correctly before proceeding.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    `;
+    return; // stop execution if form invalid
+  }
+
+  // Proceed with payment if valid
+  const querySnapshot = await getDocs(collection(db, "cart"));
+  let totalAmount = 0;
+
+  querySnapshot.forEach((docSnap) => {
+    const item = docSnap.data();
+    const quantity = item.quantity || 1;
+    const price = item.price || 0;
+    totalAmount += quantity * price;
+  });
+
+  const amountInKobo = totalAmount * 100;
+
+  const handler = PaystackPop.setup({
+    key: 'pk_test_9415bc9111ecd7535561c8445f47fbe274b7136a',
+    email: emailInput.value.trim(),
+    amount: amountInKobo,
+    currency: "NGN",
+    ref: '' + Math.floor(Math.random() * 1000000000 + 1),
+    callback: function (response) {
+      alert('✅ Payment complete! Reference: ' + response.reference);
+
+      // Clear cart
+      querySnapshot.forEach(async (docSnap) => {
+        await deleteDoc(doc(db, "cart", docSnap.id));
+      });
+
+      fetchCartItems();
+      checkoutModal.hide();
+    },
+    onClose: function () {
+      alert('❌ Payment was cancelled.');
+    }
+  });
+
+  handler.openIframe();
+};
+
+// Email format validation helper function
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email.toLowerCase());
+}
+
+
+  
+
+    const cartItemsContainer = document.getElementById("cart-items");
+    const cartTotalElement = document.getElementById("cart-total");
+    const home = document.getElementById("home");
+
+    async function fetchCartItems() {
+      const querySnapshot = await getDocs(collection(db, "cart"));
+      let total = 0;
+      cartItemsContainer.innerHTML = "";
+
+      if (querySnapshot.empty) {
+    cartItemsContainer.innerHTML = `
+      <div class="alert text-center p-5" role="alert">
+        🛒 Your cart is empty!<br>Browse our categories and discover our best deals!<br>
+        <a href="index.html" class="noCart-btn">Start Shopping</a>
+
+      </div>
+      
+    `;
+    cartTotalElement.textContent = "0.00";
+    checkoutButton.style.display = "none";
+    cartTotalElement.style.display = "none";
+    home.style.display = "none";
+
+
+  }
+
+      querySnapshot.forEach((docSnap) => {
+        const item = docSnap.data();
+        const id = docSnap.id;
+        const price = parseFloat(item.price || 0);
+        const quantity = item.quantity || 1;
+        const itemTotal = price * quantity;
+        total += itemTotal;
+
+        const itemHTML = `
+          <div class="card mb-3">
+            <div class="row g-0 align-items-center">
+              <div class="col-md-3 text-center">
+                <img src="${item.image || 'https://via.placeholder.com/100'}" class="img-fluid rounded-start p-2" alt="${item.title}">
+              </div>
+              <div class="col-md-6">
+                <div class="card-body">
+                  <h5 class="card-title">${item.title || 'Unnamed Item'}</h5>
+                  <p class="card-text">Price: #${price.toFixed(2)}</p>
+                  <p class="card-text">Total: #${itemTotal.toFixed(2)}</p>
+                  <div class="d-flex align-items-center">
+                    <button class="btn btn-sm btn-outline-secondary me-2" onclick="updateQuantity('${id}', ${quantity - 1})">-</button>
+                    <span>${quantity}</span>
+                    <button class="btn btn-sm btn-outline-secondary ms-2" onclick="updateQuantity('${id}', ${quantity + 1})">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3 text-end pe-3">
+                <button class="btn btn-danger btn-sm mb-5" onclick="removeItem('${id}')">Remove</button>
+              </div>
+            </div>
+          </div>
+        `;
+
+        cartItemsContainer.innerHTML += itemHTML;
+      });
+
+      cartTotalElement.textContent = total.toFixed(2);
+      checkoutButton.textContent = `Checkout(#${total.toFixed(2)})`;
+    }
+
+    window.removeItem = async function (itemId) {
+      try {
+        await deleteDoc(doc(db, "cart", itemId));
+        fetchCartItems();
+      } catch (error) {
+        console.error("Failed to remove item:", error);
+      }
+    };
+
+    window.updateQuantity = async function (itemId, newQuantity) {
+      if (newQuantity < 1) return; // Minimum quantity = 1
+
+      try {
+        await updateDoc(doc(db, "cart", itemId), {
+          quantity: newQuantity
+        });
+        fetchCartItems();
+      } catch (error) {
+        console.error("Failed to update quantity:", error);
+      }
+    };
+
+    fetchCartItems();
+let itemIdToRemove = null; // Temporarily stores the item ID
+
+// Function triggered by the Remove button
+window.removeItem = function (itemId) {
+  itemIdToRemove = itemId; // Store for use when confirming
+  const confirmModal = new bootstrap.Modal(document.getElementById('confirmRemoveModal'));
+  confirmModal.show();
+};
+
+// When user confirms deletion
+document.getElementById('confirm-remove-btn').addEventListener('click', async () => {
+  if (itemIdToRemove) {
+    await deleteDoc(doc(db, "cart", itemIdToRemove));
+    fetchCartItems(); // Refresh cart
+    itemIdToRemove = null;
+    const modalEl = document.getElementById('confirmRemoveModal');
+    const confirmModal = bootstrap.Modal.getInstance(modalEl);
+    confirmModal.hide();
+  }
+});
+
+
+
+  </script>
+</body>
+</html>

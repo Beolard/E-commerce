@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../other cssfolder/login.css">
+</head>
+<body>
+  <div class="container bg-light pt-5 shadow px-4 pb-4">
+    <h4 class="ps-2">LOGIN</h4><br>    
+
+    <input class="input mb-3 w-100" type="email" id="loginEmail" placeholder="Email" required />
+
+    <div class="input-group-wrapper mb-3">
+      <input class="input" type="password" id="loginPassword" placeholder="Password" required />
+      <i class="fa-regular fa-eye toggle-password" toggle="#loginPassword"></i>
+    </div>
+
+    <button class="loginbtn mybutton" id="loginBtn">LOGIN</button> &nbsp;Don't have an account? &nbsp; <a href="signup.html">SIGNUP</a>
+
+    <span class="forgot-password" id="forgotPassword"><a href="password.html">Forgot password?</a></span>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBM7LKOs-YIX1bwxYobs9UN1knm702C-bo",
+      authDomain: "newslettersignup-c89d0.firebaseapp.com",
+      projectId: "newslettersignup-c89d0",
+      storageBucket: "newslettersignup-c89d0.firebasestorage.app",
+      messagingSenderId: "323894764302",
+      appId: "1:323894764302:web:2460c09ca44d41b35c6d5f"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    function logIn() {
+      const email = document.getElementById("loginEmail").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      if (!email || !password) {
+        alert("Fill in all fields.");
+        return;
+      }
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          window.location.href = "index.html";
+        })
+        .catch(() => {
+          alert("Wrong email or password.");
+        });
+    }
+
+    function resetPassword() {
+      const email = document.getElementById("loginEmail").value.trim();
+      if (!email) {
+        alert("Please enter your email to reset password.");
+        return;
+      }
+
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          alert("Password reset email sent! Check your inbox.");
+        })
+        .catch((error) => {
+          alert("Error sending password reset email: " + error.message);
+        });
+    }
+
+    document.getElementById("loginBtn").addEventListener("click", logIn);
+    document.getElementById("forgotPassword").addEventListener("click", resetPassword);
+
+    // Toggle password visibility
+    document.querySelectorAll(".toggle-password").forEach(icon => {
+      icon.addEventListener("click", () => {
+        const input = document.querySelector(icon.getAttribute("toggle"));
+        const type = input.type === "password" ? "text" : "password";
+        input.type = type;
+        icon.classList.toggle("fa-eye");
+        icon.classList.toggle("fa-eye-slash");
+      });
+    });
+  </script>
+</body>
+</html>

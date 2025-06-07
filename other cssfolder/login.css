@@ -1,0 +1,47 @@
+
+    * {
+      padding: 0px;
+      margin: 0px;
+      box-sizing: border-box;
+    }
+    .container {
+      width: 500px;
+      margin-top: 50px;
+      height: auto;
+      border-radius: 20px;
+    }
+    .input-group-wrapper {
+      position: relative;
+    }
+    .input {
+      width: 100%;
+      padding: 10px 40px 10px 10px; 
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: #888;
+      font-size: 1.1rem;
+      z-index: 2;
+    }
+    .loginbtn {
+      background-color: burlywood;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      width: 100px;
+    }
+    .forgot-password {
+      margin-top: 10px;
+      display: block;
+      cursor: pointer;
+      color: blue;
+      text-decoration: underline;
+      font-size: 0.9rem;
+    }
