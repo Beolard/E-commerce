@@ -10,22 +10,22 @@
   <link rel="stylesheet" href="../other cssfolder/landing.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary p-4 sticky-top">
+ <nav class="navbar navbar-expand-lg bg-body-tertiary p-4 sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Beolard</a>
+    <a class="navbar-brand beolard" href="#">Beolard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="landingpage.html">Home</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="fashion.html"><i class="fa-solid fa-shirt pe-2"></i>Fashion</a></li>
             <li><a class="dropdown-item" href="electronics.html"><i class="fa-solid fa-laptop pe-2"></i>Electronics</a></li>
             <li><a class="dropdown-item" href="beauty.html"><i class="fa-solid fa-user-doctor pe-2"></i>Health and Beauty</a></li>
-            <li><a class="dropdown-item" href="home.html"><i class="fa-solid fa-house pe-2"></i></i>Home decoration</a></li>
+            <li><a class="dropdown-item" href="home.html"><i class="fa-solid fa-house pe-2"></i>Home decoration</a></li>
             <li><a class="dropdown-item" href="grocery.html"><i class="fa-solid fa-basket-shopping pe-2"></i>Groceries</a></li>
             <li><a class="dropdown-item" href="furniture.html"><i class="fa-solid fa-couch pe-2"></i>Furniture</a></li>
           </ul>
@@ -37,14 +37,14 @@
       </form>
       <div class="cartwrap">
   <a href="Cart.html" class="cart-link position-relative">
-    <i class="bi bi-cart" style="font-size: 25px;"></i>
+    <i class="bi bi-cart carticon" ></i>
     <span id="cart-count" class="cart-badge">0</span>
   </a>
 </div>
 
       <div class="dropdown">
         <button class="btn border-0 bg-transparent dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown">
-          <i class="bi bi-person-circle usericon" style="font-size: 25px;"></i>
+          <i class="bi bi-person-circle usericon"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
           <li><a class="dropdown-item" href="login.html">Logout</a></li>
@@ -53,17 +53,18 @@
     </div>
   </div>
 </nav>
+
   <div id="loading-spinner" class="d-flex justify-content-center my-5" >
     <div class="spinner-grow text-primary" role="status" style="display: none;">
       
     </div>
   </div>
 
-  <div id="product-details" class="container mt-5 d-flex gap-5 "></div>
+  <div id="product-details" class="product-container mt-5 d-flex gap-5 "></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Firebase App (core SDK) -->
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
   import {
@@ -136,49 +137,41 @@ const firebaseConfig = {
 
 
   // Update the button logic
-  window.renderProduct = function(product) {
-    const detailsDiv = document.getElementById("product-details");
+ window.renderProduct = function(product) {
+  const detailsDiv = document.getElementById("product-details");
+  detailsDiv.innerHTML = `
+    <div class="container">
+      <div class="row justify-content-center align-items-start g-4">
+        <div class="col-md-6 col-12">
+          <div class="product-card">
+            <img src="${product.image}" alt="${product.title}" class="img-fluid w-100" />
+          </div>
+        </div>
+        <div class="col-md-6 col-12">
+          <div class="product-info p-3">
+            <h1>${product.title}</h1>
+            <p>${product.description}</p>
+            <p><strong>Price:</strong> #${product.price}</p>
+            <p><strong>Warranty:</strong> ${product.warrantyInformation || "Not available"}</p>
+            <p><strong>Shipping Info:</strong> ${product.shippingInformation || "Not available"}</p>
+            <button class="btn singlepagebtn w-100 mt-3" id="singlepagebtn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
 
-    const productCard = document.createElement("div");
-    productCard.style.width = "35rem";
-    productCard.style.padding = "5rem";
-    productCard.style.margin = "1rem";
-    productCard.style.borderRadius = "1rem";
-    productCard.style.backgroundColor = "burlywood";
-    productCard.innerHTML = `
-      <img src="${product.image}" alt="${product.title}" class="img-fluid productimage">
-    `;
-    detailsDiv.appendChild(productCard);
+  const addToCartButton = document.getElementById("singlepagebtn");
+  addToCartButton.addEventListener("click", () => {
+    addToCartFirestore(product);
+  });
+};
 
-    const secondCard = document.createElement("div");
-    secondCard.style.width = "70rem";
-    secondCard.style.padding = "1rem";
-    secondCard.style.margin = "1rem";
-    secondCard.innerHTML = `
-      <h1>${product.title}</h1>
-      <p>${product.description}</p>
-      <p><strong>Price:</strong> #${product.price}</p>
-      <p><strong>Warranty:</strong> ${product.warrantyInformation || "Not available"}</p>
-      <p><strong>Shipping Info:</strong> ${product.shippingInformation || "Not available"}</p>
-      <button class="btn singlepagebtn" id="singlepagebtn">Add to cart</button>
-    `;
-    detailsDiv.appendChild(secondCard);
-
-    const addToCartButton = secondCard.querySelector("#singlepagebtn");
-    addToCartButton.addEventListener("click", () => {
-      addToCartFirestore(product);
-    });
-  };
-
-  // Load product details from API
- 
-  // Extract productId from URL query string
   function getProductIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
-    return urlParams.get("id"); // Make sure your product page uses ?id=123
+    return urlParams.get("id"); 
   }
 
-  // Fetch product and render
   async function loadProductDetails() {
     const productId = getProductIdFromUrl();
     const spinner = document.getElementById("loading-spinner");

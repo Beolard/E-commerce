@@ -11,50 +11,48 @@
 <body>
  <nav class="navbar navbar-expand-lg bg-body-tertiary p-4 sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Beolard</a>
+    <a class="navbar-brand beolard" href="#">Beolard</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="landingpage.html">Home</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="fashion.html"><i class="fa-solid fa-shirt pe-2"></i>Fashion</a></li>
             <li><a class="dropdown-item" href="electronics.html"><i class="fa-solid fa-laptop pe-2"></i>Electronics</a></li>
             <li><a class="dropdown-item" href="beauty.html"><i class="fa-solid fa-user-doctor pe-2"></i>Health and Beauty</a></li>
-            <li><a class="dropdown-item" href="home.html"><i class="fa-solid fa-house pe-2"></i></i>Home decoration</a></li>
+            <li><a class="dropdown-item" href="home.html"><i class="fa-solid fa-house pe-2"></i>Home decoration</a></li>
             <li><a class="dropdown-item" href="grocery.html"><i class="fa-solid fa-basket-shopping pe-2"></i>Groceries</a></li>
             <li><a class="dropdown-item" href="furniture.html"><i class="fa-solid fa-couch pe-2"></i>Furniture</a></li>
           </ul>
         </li>
       </ul>
-       <form class="d-flex" role="search">
+      <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search products..." aria-label="Search"/>
         <button class="btn searchbtn" type="submit">Search</button>
       </form>
-
-      
       <div class="cartwrap">
   <a href="Cart.html" class="cart-link position-relative">
-    <i class="bi bi-cart" style="font-size: 25px;"></i>
+    <i class="bi bi-cart carticon" ></i>
     <span id="cart-count" class="cart-badge">0</span>
   </a>
-</div>
+
 
       <div class="dropdown">
         <button class="btn border-0 bg-transparent dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown">
-          <i class="bi bi-person-circle usericon" style="font-size: 25px;"></i>
+          <i class="bi bi-person-circle usericon"></i>
         </button>
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
           <li><a class="dropdown-item" href="login.html">Logout</a></li>
         </ul>
       </div>
+      </div>
     </div>
   </div>
 </nav>
-
 
 
   <h2 class="text-center p-5">Phones & Laptops</h2>
@@ -75,7 +73,7 @@
       <div class="footermainbox">
         <div class="aboutusbox">
           <h3>BEOLARD</h3>
-          <p>Beolard is a trusted e-commerce brand committed to making <br>everyday essentials affordable and accessible.We offer a wide<br> range of product categories—from health and wellness to<br> household items and personal care. Our mission is to<br> simplify shopping for Nigerians by combining quality, variety, <br>and  unbeatable prices. With fast delivery and excellent customer<br> service, Beolard is your go-to platform for smart, convenient shopping.</p>
+          <p class="text-dark">Beolard is a trusted e-commerce brand committed to making <br>everyday essentials affordable and accessible.We offer a wide<br> range of product categories—from health and wellness to<br> household items and personal care. Our mission is to<br> simplify shopping for Nigerians by combining quality, variety, <br>and  unbeatable prices. With fast delivery and excellent customer<br> service, Beolard is your go-to platform for smart, convenient shopping.</p>
         </div>
 
         <div class="detailsbox">
@@ -98,9 +96,9 @@
 
         <div class="contactusbox">
           <h3>CONTACT US</h3>
-          <p>70 Obaonikoro Square South, Lagos, NY 10012,<br> Nigeria.</p>
-          <p>Email: beolard125@gmail.com</p>
-          <p>Phone: +234 703 890 5749</p>
+          <p class="text-dark">70 Obaonikoro Square South, Lagos, NY 10012,<br> Nigeria.</p>
+          <p class="text-dark">Email: beolard125@gmail.com</p>
+          <p class="text-dark">Phone: +234 703 890 5749</p>
         </div>
       </div>
     </div>
@@ -159,7 +157,7 @@
           <img src="${product.thumbnail}" class="card-img-top" alt="${product.title}">
           <div class="card-body">
             <h3 class="card-title">${product.title}</h3>
-            <a href="product1.html?id=${product.id}" class="text-decoration-none text-black">
+            <a href="product1.html?id=${product.id}" class="card-des text-decoration-none text-black">
               ${product.description.slice(0, 100)}...
             </a>
             <p class="card-text">#${product.price}</p>

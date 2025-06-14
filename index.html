@@ -1,351 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beolard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Chau+Philomene+One&family=Comic+Relief&family=Handlee&family=Lilita+One&family=Madimi+One&family=Oswald:wght@200..700&family=Tagesschrift&family=Winky+Rough&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.12.1/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./other cssfolder/landing.css">
-    
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signup</title>
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../other cssfolder/signup.css">
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg bg-body-tertiary p-4 sticky-top ">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Beolard</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="./Other index.html folder/fashion.html"><i class="fa-solid fa-shirt pe-2"></i>Fashion</a></li>
-            <li><a class="dropdown-item" href="./Other index.html folder/electronics.html"><i class="fa-solid fa-laptop pe-2"></i>Electronics</a></li>
-            <li><a class="dropdown-item" href="./Other index.html folder/beauty.html"><i class="fa-solid fa-user-doctor pe-2"></i>Health and Beauty</a></li>
-            <li><a class="dropdown-item" href="./Other index.html folder/home.html"><i class="fa-solid fa-house pe-2"></i>Home decoration</a></li>
-            <li><a class="dropdown-item" href="./Other index.html folder/grocery.html"><i class="fa-solid fa-basket-shopping pe-2"></i>Groceries</a></li>
-            <li><a class="dropdown-item" href="./Other index.html folder/furniture.html"><i class="fa-solid fa-couch pe-2"></i>Furniture</a></li>
-          </ul>
-        </li>
-      </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search products..." aria-label="Search"/>
-        <button class="btn searchbtn" type="submit">Search</button>
-      </form>
-
-      
-      <div class="cartwrap">
-  <a href="./Other index.html folder/Cart.html" class="cart-link position-relative">
-    <i class="bi bi-cart" style="font-size: 25px;"></i>
-    <span id="cart-count" class="cart-badge">0</span>
-  </a>
-</div>
-
-      <div class="dropdown">
-        <button class="btn border-0 bg-transparent dropdown-toggle" type="button" id="accountDropdown" data-bs-toggle="dropdown">
-          <i class="bi bi-person-circle usericon" style="font-size: 25px;"></i>
-        </button>
-        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-          <li><a class="dropdown-item" href="./Other index.html folder/login.html">Logout</a></li>
-        </ul>
-      </div>
-    </div>
+<div class="wrapper ">
+  <div class="containerone shadow">
+    
+    <img src="./Images/Black_and_White_Modern_Personal_Logo-removebg-preview.png">
+    <p><small> Where Smart Shopping Begins...</small></p>
+    
+   
   </div>
-</nav>
+<div class="containertwo shadow">
+  <h3>SIGN UP</h3>
+  <input class="input mb-3" type="text" id="firstname" placeholder="Firstname">
+  <input class="input mb-3" type="text" id="secondname" placeholder="Lastname">
+  <input class="input mb-3" type="email" id="email" placeholder="Email" >
 
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" >
-      <img src="./Images/Simple Modern Photo Collage Autumn Fashion Sale Banner.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item" >
-      <img src="./Images/New Gray Minimalist Collection.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="./Images/New Brown Minimalist Jewelry New Arrivals Banner.png" class="d-block w-100" alt="...">
-    </div>
-  </div>
-</div>
+  <div class="input-group-wrapper ">
+    <input class="input" type="password" id="password" placeholder="Password">
+    <i class="fa-regular fa-eye toggle-password position1" toggle="#password" ></i>
+      <div id="password-error" class="text-danger small mt-1"></div> 
 
-<div class="container3 text-center">
-  <h2><strong>NEW ARRIVALS</strong></h2>
-  <p id="noMatchMessage">
-  No matching product found.<br> - Check your spelling for typing errors<br>
-- Try searching with short and simple keywords<br>
-- Try searching more general terms - you can then filter the search results<br>
-</p>
-
-  <div class="grid" id="productGrid"></div>
-  
-  
-
-  <div class="newsbox">
-    <div class="newsletterbox">
-      <strong><h1>STAY UP TO DATE ABOUT<br>OUR LATEST OFFER</h1></strong>
-      <form class="newsbox2" id="nw">
-        <input type="email" class="newsletterinp" id="emailInput" placeholder="Enter your email"><br>
-        <button class="newsletterbtn">Subscribe To Our Newsletter</button>
-      </form>
-    </div>
-
-    <div class="overall">
-      <div class="footermainbox">
-        <div class="aboutusbox">
-          <h3>BEOLARD</h3>
-          <p>Beolard is a trusted e-commerce brand committed to making <br>everyday essentials affordable and accessible.We offer a wide<br> range of product categories—from health and wellness to<br> household items and personal care. Our mission is to<br> simplify shopping for Nigerians by combining quality, variety, <br>and  unbeatable prices. With fast delivery and excellent customer<br> service, Beolard is your go-to platform for smart, convenient shopping.</p>
-        </div>
-
-        <div class="detailsbox">
-          <h3>ABOUT US</h3>
-          <p><a href="#" class="text-dark">Careers</a></p>
-          <p><a href="#" class="text-dark">Our Stores</a></p>
-          <p><a href="#" class="text-dark">Our Cares</a></p>
-          <p><a href="#" class="text-dark">Terms & Conditions</a></p>
-          <p><a href="#" class="text-dark">Privacy Policy</a></p>
-        </div>
-
-        <div class="customercarebox">
-          <h3>CUSTOMER CARE</h3>
-          <p><a href="#" class="text-dark">Help center</a></p>
-          <p><a href="#" class="text-dark">How to buy</a></p>
-          <p><a href="#" class="text-dark">Track your order</a></p>
-          <p><a href="#" class="text-dark">Corporate & Bulk Purchasing</a></p>
-          <p><a href="#" class="text-dark">Returns & Refunds</a></p>
-        </div>
-
-        <div class="contactusbox">
-          <h3>CONTACT US</h3>
-          <p>70 Washington Square South, Lagos, NY 10012,<br> Nigeria.</p>
-          <p>Email: beolard125@gmail.com</p>
-          <p>Phone: +234 703 890 5749</p>
-        </div>
-      </div>
-    </div>
   </div>
 
+  <div class="input-group-wrapper">
+    <input class="input" type="password" id="confirmPassword" placeholder="Confirm Password">
+    <i class="fa-regular fa-eye toggle-password position2" toggle="#confirmPassword" id="elizabeth" ></i> 
+    <div id="confirm-password-error" class="text-danger small mt-1"></div>
 
+
+  </div>
+  <div class="regex">
+  <li><input type="checkbox" disabled id="lengthCheck"> At least 8 characters</li>
+  <li><input type="checkbox" disabled id="capitalCheck"> At least one uppercase letter</li>
+  <li><input type="checkbox" disabled id="lowercaseCheck"> At least one lowercase letter</li>
+  <li><input type="checkbox" disabled id="specialCharCheck"> At least one special character</li>
+</ul>
 </div>
-  <footer class="mainfooter">
-    <div class="container">
-      <div class="beolardtext">
-      <p class="text-light">&copy; 2025 Beolard. All rights reserved.</p>
-      </div>
-      <div class="socialmediacard">
-        <a href="#" class="text-white "><i class="fab fa-facebook"></i></a>
-        <a href="#" class="text-white "><i class="fab fa-twitter"></i></a>
-        <a href="#" class="text-white "><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-  </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
+ <label class="custom-checkbox-container">
+  <input type="checkbox" id="checkbox">
+  <span class="checkmark"></span>
+  I agree to the &nbsp;<a href="./Other index.html folder/policy.html">policy</a>.
+</label>
+
+  <button class="signupbtn mybutton" id="signup">SIGNUP</button> &nbsp;<br>Have an account? &nbsp; <a href="./Other index.html folder/login.html">LOGIN</a>
+</div>
+</div>
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-app.js";
-  import { getFirestore, collection, addDoc, getDocs,query,where } from "https://www.gstatic.com/firebasejs/11.7.3/firebase-firestore.js";
-
+ import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+import { getFirestore,collection, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-firestore.js"
   const firebaseConfig = {
     apiKey: "AIzaSyBM7LKOs-YIX1bwxYobs9UN1knm702C-bo",
     authDomain: "newslettersignup-c89d0.firebaseapp.com",
     projectId: "newslettersignup-c89d0",
-    storageBucket: "newslettersignup-c89d0.appspot.com",
+    storageBucket: "newslettersignup-c89d0.firebasestorage.app",
     messagingSenderId: "323894764302",
     appId: "1:323894764302:web:2460c09ca44d41b35c6d5f"
   };
 
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
+  
+  // Initialize Firebase
+ // Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-  // Load Products
-  let allProducts = [];
-  const productGrid = document.getElementById('productGrid');
-  const searchInput = document.getElementById("searchInput");
-const searchIcon = document.getElementById("searchIcon");
-const noMatchMessage = document.getElementById("noMatchMessage");
-  async function loadGroceries() {
+
+const passwordError = document.getElementById("password-error");
+const confirmPasswordError = document.getElementById("confirm-password-error");
+
+       // Email & password regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&]).{8,}$/;
+
+
+document.getElementById("password").addEventListener("input", () => {
+  const password = document.getElementById("password").value;
+
+  // Update checkboxes
+  document.getElementById("lengthCheck").checked = password.length >= 8;
+  document.getElementById("capitalCheck").checked = /[A-Z]/.test(password);
+  document.getElementById("lowercaseCheck").checked = /[a-z]/.test(password);
+  document.getElementById("specialCharCheck").checked = /[@$!%*?&]/.test(password);
+
+});
+
+
+document.getElementById("confirmPassword").addEventListener("input", () => {
+  const passwordValue = document.getElementById("password").value;
+  const confirmPasswordValue = document.getElementById("confirmPassword").value;
+  if (passwordValue === confirmPasswordValue) {
+    confirmPasswordError.textContent = "";
+  }else{
+
+    
+  }
+});
+
+
+  document.getElementById("signup").addEventListener("click", async () => {
+
+
+     passwordError.textContent = "";
+     confirmPasswordError.textContent = "";
+
+    const firstName = document.getElementById("firstname").value.trim();
+    const secondName = document.getElementById("secondname").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const confirmPassword = document.getElementById("confirmPassword").value;
+    const checkBox = document.getElementById("checkbox").checked;
+
+
+
+    
+
+
+    if (!firstName || !secondName || !email || !password || !confirmPassword) {
+      return alert("Fill in all the fields");
+    }
+
+
+    
+
+    if (!emailRegex.test(email)) {
+      return alert("Enter a valid email address.");
+    }
+
+     if (password !== confirmPassword) {
+      return alert("Passwords do not match.");
+    }
+
+   if (!passwordRegex.test(password)) {
+  passwordError.textContent = "Password must be at least 8 characters, including uppercase, lowercase, and a special character.";
+  return;
+}
+
+
+   
+    if (!checkBox) {
+      return alert("You must agree to the policy.");
+    }
+
     try {
-      const response = await fetch('https://fakestoreapi.com/products');
-      const data = await response.json();
-      allProducts = data;
-      displayProducts(data);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user = userCredential.user;
+
+      // Store user info (excluding password) in Firestore
+      await setDoc(doc(db, "patients", user.uid), {
+
+        firstName,
+        secondName,
+        email,
+        createdAt: serverTimestamp()
+
+      });
+
+      alert("Signup successful!");
+      window.location.href = "./Other index.html folder/login.html";
+
     } catch (error) {
-      console.error("Failed to load products:", error);
-    }
+      if (error.code === "auth/email-already-in-use") {
+    alert("An account with this email already exists.");
+  } else {
+    alert("Signup failed: " + error.message);
   }
+}
 
-  function displayProducts(products) {
-    productGrid.innerHTML = '';
-    if (products.length === 0) {
-      productGrid.innerHTML = '<p>No matching products found.</p>';
-      return;
-    }
-
-    products.forEach(product => {
-      const card = document.createElement('div');
-      card.className = 'card p-3 m-2';
-      card.innerHTML = `
-        <img src="${product.image}" class="card-img-top" alt="${product.title}" style="height:200px; object-fit:contain;">
-        <div class="card-body">
-          <h6 class="card-title">${product.title}</h6>
-          <a href="product.html?id=${product.id}" class="text-decoration-none text-black">
-              ${product.description.slice(0, 100)}...
-            </a>
-          <p class="card-text" style="color:burlywood; text-dark">#${product.price}</p>
-        </div>
-      `;
-      productGrid.appendChild(card);
-       
-    });
-  }
-function searchProducts() {
-  const query = searchInput.value.trim().toLowerCase();
-
-  if (query === "") {
-    noMatchMessage.style.display = "none";
-    return;
-  }
-
-  // Mapping of keywords to pages
-  const categoryRedirects = {
-    "laptop": "electronics.html",
-    "phone": "electronics.html",
-    "electronics": "electronics.html",
-    "shirt": "fashion.html",
-    "dress": "fashion.html",
-    "bag": "fashion.html",
-    "shoes": "fashion.html",
-    "fashion": "fashion.html",
-    "grocery": "grocery.html",
-    "food": "grocery.html"
-  };
-
-  // Check if we’re on a product page (has productGrid)
-  const products = productGrid?.querySelectorAll(".card") || [];
-  let foundInCurrentPage = false;
-  let firstMatch = null;
-
-  products.forEach(card => card.classList.remove("highlighted-product"));
-
-  products.forEach(card => {
-    const title = card.querySelector(".card-title")?.textContent.toLowerCase();
-    if (new RegExp(`\\b${query}\\b`, "i").test(title) && !firstMatch) {
-
-      firstMatch = card;
-    }
   });
 
-  if (firstMatch) {
-    noMatchMessage.style.display = "none";
-    firstMatch.scrollIntoView({ behavior: "smooth", block: "center" });
-    firstMatch.classList.add("highlighted-product");
-    foundInCurrentPage = true;
-  }
-
-  if (!foundInCurrentPage) {
-    // Redirect to appropriate page with search param
-    for (const keyword in categoryRedirects) {
-      if (query.includes(keyword)) {
-        const targetPage = categoryRedirects[keyword];
-        window.location.href = `${targetPage}?search=${encodeURIComponent(query)}`;
-        return;
-      }
-    }
-
-    // If nothing matched, show message
-    noMatchMessage.style.display = "block";
-    noMatchMessage.scrollIntoView({behavior: "smooth", block:"center"});
-    productGrid.style.display="none"
-     setTimeout(() => productGrid.style.border = "", 3000);
-  }
-}
-
-// Trigger search on Enter key
-searchInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    searchProducts();
-  }
-});
-
-// Trigger search on icon click
-searchIcon.addEventListener("click", (e) => {
-  e.preventDefault();
-  searchProducts();
-});
+  // Toggle password visibility
+  document.querySelectorAll(".toggle-password").forEach(icon => {
+    icon.addEventListener("click", () => {
+      const input = document.querySelector(icon.getAttribute("toggle"));
+      const type = input.type === "password" ? "text" : "password";
+      input.type = type;
+      icon.classList.toggle("fa-eye");
+      icon.classList.toggle("fa-eye-slash");
+    });
+  });
 
 
-  // Newsletter Form Submission
-const newsletterForm = document.getElementById('nw');
-
-newsletterForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const email = document.getElementById('emailInput').value.trim();
-
-  if (!email || !email.includes('@')) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-
-  try {
-    // Query Firestore to check if email exists
-    const q = query(collection(db, "subscribers"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-
-    if (!querySnapshot.empty) {
-      // Email already subscribed
-      alert("You have already subscribed to this site!!");
-      return;
-    }
-
-    // If not found, add the email
-    await addDoc(collection(db, "subscribers"), { email });
-    alert("Thanks for subscribing!");
-    newsletterForm.reset();
-
-    document.getElementById('emailInput').value = ''; 
-
-  } catch (error) {
-    console.error("Error saving email:", error);
-    alert("There was an error. Please try again.");
-  }
-});
-
- 
-
-  // Cart Count
-  async function updateCartCountFromFirebase() {
-    try {
-      const querySnapshot = await getDocs(collection(db, "cart"));
-      let totalQuantity = 0;
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        totalQuantity += data.quantity || 0;
-      });
-      document.getElementById("cart-count").textContent = totalQuantity;
-    } catch (error) {
-      console.error("Error fetching cart data:", error);
-      document.getElementById("cart-count").textContent = 0;
-    }
-  }
-
-  // Initial load
-  loadGroceries();
-  updateCartCountFromFirebase();
-
-
-// Handle search on Enter key and icon click
-function handleSearch() {
-  const query = searchInput.value.trim().toLowerCase();
-  if (!query) return;
-
-}
-
-</script>
-
-
+  </script>
 </body>
 </html>
+

@@ -1,47 +1,51 @@
-body{
-height:100vh;
 
-
-
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
 }
 
- #cart-items{
-text-align: center;
-
-margin-right: 100px;
- }
-.checkout{
-
-padding-bottom: 100px;
-padding-right: 500px;
-
+#cart-items {
+  text-align: center;
+  margin: 20px auto;
+  padding: 20px;
+  max-width: 1200px;
 }
 
-.checkoutbtn{
-background-color: burlywood;
-width: 1000px;
-font-size: 25px;
-margin-left: 150px;
-border: none;
-border-radius: 10px;
-padding: 10px;
-}
-.noCart{
-background-color:burlywood;
-border: none;
-padding: 10px;
-font-size: 20px;
-border-radius:5px;
+.checkout {
+  padding: 20px;
+  text-align: center;
 }
 
-.noCart a{
+.checkoutbtn {
+  background-color: burlywood;
+  width: 100%;
+  max-width: 500px;
+  font-size: 25px;
+  margin: 20px auto;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  display: block;
+  font-weight: 600;
+}
 
+.noCart {
+  background-color: burlywood;
+  border: none;
+  padding: 10px;
+  font-size: 20px;
+  border-radius: 5px;
+}
+
+.noCart a {
   text-decoration: none;
   color: black;
+  font-weight: bold;
 }
 
 .noCart-btn {
-  display: inline-block;
+  display: block;
   background-color: burlywood;
   color: black;
   text-decoration: none;
@@ -49,97 +53,134 @@ border-radius:5px;
   font-size: 20px;
   border-radius: 5px;
   text-align: center;
-  width: 300px;
-  position: relative;
-  top: 60px;
-  right: 700px;
+  width: 80%;
+  max-width: 300px;
+  margin: 60px auto 0;
 }
 
-
-.alert{
-
+.alert {
   font-size: 20px;
+  text-align: center;
 }
 
-.wrapper a{
-
-margin-left: 1100px;
-position: relative;
-bottom: 50px;
-text-decoration: none;
-color: black;
+.wrapper a {
+  display: block;
+  text-align: right;
+  margin: 20px;
+  text-decoration: none;
+  color: black;
 }
 
-.d-flex{
+/* Product Layout */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px;
+  box-sizing: border-box;
+}
 
-margin-right: 10px;
+.product-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px;
+  background-color: #fdfdfd;
+  flex: 1 1 280px;
+  max-width: 100%;
+  box-sizing: border-box;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.d-flex {
+  margin-right: 10px;
+}
+
+.searchbtn {
+  background-color: burlywood;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+}
+@media (max-width: 767px) {
+  body,
+  .product-card,
+  .checkoutbtn,
+  .noCart-btn,
+  .alert {
+    font-weight: bold;
+    text-align: center;
+  }
+
+  #cart-items {
+    margin-right: 70px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkoutbtn {
+    font-size: 20px;
+    max-width: 90%;
+  }
+
+  .noCart-btn {
+    font-size: 18px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+  }
+
+  .wrapper a {
+    text-align: center;
+    margin-left: 100px;
+    
+  }
+
+  .product-container {
+    gap: 15px;
+    padding: 5px;
+  }
+
+  .product-card {
+    flex: 1 1 90%;
+    margin: 10px auto;
+  }
 
 
 }
-
-.searchbtn{
-
-background-color: burlywood;
-
-
-
-}
-
-@media (max-width: 768px) {
-.noCart-btn {
-
-position: relative;
-right: 350px;
-
-}
-
-  #cart-items{
-
-margin-right: 100px;
-
-
- }
- .checkoutbtn{
-margin-left: 60px;
-width: 400px;
-}
-
- .wrapper a{
-margin-left: 300px;
-
-
- }
- .checkoutbtn{
-margin-left: 60px;
-width: 400px;
-}
-}
-
 @media (min-width: 769px) and (max-width: 992px) {
-  
-.checkoutbtn{
-width: 500px;
-margin-right:2000px;
-margin-left: 90px;
+  .checkoutbtn {
+    max-width: 450px;
+    margin: 20px auto;
+  }
 
+  .wrapper a {
+    text-align: right;
+    margin-right: 40px;
+  }
+
+  .product-card {
+    flex: 1 1 45%;
+  }
 }
 
-.wrapper a{
-margin-left: 500px;
+/* Large Screens (≥993px) */
+@media (min-width: 993px) {
+  .product-card {
+    flex: 1 1 30%;
+  }
 
-}
-}
-@media (min-width:993px) and (max-width:1400px){
-  .wrapper a{
-margin-left: 800px;
+  .checkoutbtn {
+    max-width: 500px;
+  }
 
-}
-.checkoutbtn{
-width: 500px;
-
-margin-left: 200px;
-
+  .wrapper a {
+    margin-right: 60px;
+  }
 }
 
-
-}
